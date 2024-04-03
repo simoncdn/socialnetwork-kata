@@ -16,13 +16,13 @@ describe("Feature: Posting a message", () => {
 
 			fixture.whenUserPostsAMessage({
 				id: "message-id",
-				authorId: "Alice",
+				author: "Alice",
 				content: "Hello World!",
 			})
 
 			fixture.thenPostedMessageShouldBe({
 				id: "message-id",
-				authorId: "Alice",
+				author: "Alice",
 				content: "Hello World!",
 				publishedAt: new Date("2024-01-19T19:00:00Z"),
 			})
@@ -32,7 +32,7 @@ describe("Feature: Posting a message", () => {
 
 			fixture.whenUserPostsAMessage({
 				id: "message-id",
-				authorId: "Alice",
+				author: "Alice",
 				content: "a".repeat(281),
 			})
 
@@ -46,7 +46,7 @@ describe("Feature: Posting a message", () => {
 
 			fixture.whenUserPostsAMessage({
 				id: "message-id",
-				authorId: "Alice",
+				author: "Alice",
 				content: "",
 			})
 
@@ -57,7 +57,7 @@ describe("Feature: Posting a message", () => {
 
 			fixture.whenUserPostsAMessage({
 				id: "message-id",
-				authorId: "Alice",
+				author: "Alice",
 				content: "   ",
 			})
 

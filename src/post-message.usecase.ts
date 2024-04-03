@@ -1,12 +1,12 @@
 export type PostMessageCommand = {
 	id: string;
-	authorId: string;
+	author: string;
 	content: string;
 };
 
 export type Message = {
 	id: string;
-	authorId: string;
+	author: string;
 	content: string;
 	publishedAt: Date;
 };
@@ -35,7 +35,7 @@ export class PostMessageUseCase {
 		}
 		this.messageRepository.save({
 			id: postMessageCommand.id,
-			authorId: postMessageCommand.authorId,
+			author: postMessageCommand.author,
 			content: postMessageCommand.content,
 			publishedAt: this.publishedDate.getPublishedDate(),
 		});
