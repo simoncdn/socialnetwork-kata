@@ -24,7 +24,7 @@ export class EmptyMessageError extends Error { }
 export class PostMessageUseCase {
 	constructor(
 		private readonly messageRepository: MessageRepository,
-		private readonly publishedDate: DateProvider
+		private readonly dateProvider: DateProvider
 	) { }
 
 	handle(postMessageCommand: PostMessageCommand) {
@@ -37,7 +37,7 @@ export class PostMessageUseCase {
 			id: postMessageCommand.id,
 			author: postMessageCommand.author,
 			content: postMessageCommand.content,
-			publishedAt: this.publishedDate.getPublishedDate(),
+			publishedAt: this.dateProvider.getPublishedDate(),
 		});
 	}
 }
