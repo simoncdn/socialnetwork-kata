@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import { DateProvider, PostMessageCommand, PostMessageUseCase } from './src/post-message.usecase';
-import { InMemoryMessageRepository } from './src/message.inmemory.repository';
+import { FileSystemMessageRepository } from './src/message.fs.repository';
 
 class RealDateProvider implements DateProvider {
 	getPublishedDate(): Date {
@@ -9,7 +9,7 @@ class RealDateProvider implements DateProvider {
 	}
 }
 
-const messageRepository = new InMemoryMessageRepository();
+const messageRepository = new FileSystemMessageRepository();
 const dateProvider = new RealDateProvider();
 const postMessageUseCase = new PostMessageUseCase(
 	messageRepository,
@@ -33,7 +33,6 @@ program
 				try {
 					await postMessageUseCase.handle(postMessageCommand);
 					console.log("✅ Message posted");
-					console.log(messageRepository.message);
 				}
 				catch (error) {
 					console.error("❌", error);
