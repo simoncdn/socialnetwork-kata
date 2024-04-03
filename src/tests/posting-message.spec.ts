@@ -12,10 +12,10 @@ describe("Feature: Posting a message", () => {
 	})
 
 	describe("Rule: A message can contain a maximum of 280 characters", () => {
-		test("Alice can post a message on her timeline", () => {
+		test("Alice can post a message on her timeline", async () => {
 			fixture.givenPublishedDate(new Date("2024-01-19T19:00:00Z"));
 
-			fixture.whenUserPostsAMessage({
+			await fixture.whenUserPostsAMessage({
 				id: "message-id",
 				author: "Alice",
 				content: "Hello World!",
@@ -28,10 +28,10 @@ describe("Feature: Posting a message", () => {
 				publishedAt: new Date("2024-01-19T19:00:00Z"),
 			})
 		})
-		test("Alice cannot post a message with more 280 characters", () => {
+		test("Alice cannot post a message with more 280 characters", async () => {
 			fixture.givenPublishedDate(new Date("2024-01-19T19:00:00Z"));
 
-			fixture.whenUserPostsAMessage({
+			await fixture.whenUserPostsAMessage({
 				id: "message-id",
 				author: "Alice",
 				content: "a".repeat(281),
@@ -42,10 +42,10 @@ describe("Feature: Posting a message", () => {
 	});
 
 	describe("Rule: A message cannot be empty", () => {
-		test("Alice cannot post an empty message", () => {
+		test("Alice cannot post an empty message", async () => {
 			fixture.givenPublishedDate(new Date("2024-01-19T19:00:00Z"));
 
-			fixture.whenUserPostsAMessage({
+			await fixture.whenUserPostsAMessage({
 				id: "message-id",
 				author: "Alice",
 				content: "",
@@ -53,10 +53,10 @@ describe("Feature: Posting a message", () => {
 
 			fixture.thenErrorShouldBe(EmptyMessageError)
 		})
-		test("Alice cannot post a message with only spaces", () => {
+		test("Alice cannot post a message with only spaces", async () => {
 			fixture.givenPublishedDate(new Date("2024-01-19T19:00:00Z"));
 
-			fixture.whenUserPostsAMessage({
+			await fixture.whenUserPostsAMessage({
 				id: "message-id",
 				author: "Alice",
 				content: "   ",
@@ -88,9 +88,9 @@ const createFixture = () => {
 		givenPublishedDate(date: Date) {
 			dateProvider.now = date;
 		},
-		whenUserPostsAMessage(postMessageCommand: PostMessageCommand) {
+		async whenUserPostsAMessage(postMessageCommand: PostMessageCommand) {
 			try {
-				postMessageUseCase.handle(postMessageCommand);
+				await postMessageUseCase.handle(postMessageCommand);
 			} catch (error) {
 				thrownError = error;
 			}
